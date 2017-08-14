@@ -19,11 +19,29 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'application'
+apply plugin: 'war'
+apply plugin: 'java'
+
+def projectBaseName = 'smartcity-api'
+def projectVersion = '1.0'
+
+
+mainClassName = "ar.edu.usal.smartcity.application.Application"
 
 jar {
-    baseName = 'smartcity-api'
-    version = '1.0'
+    baseName = projectBaseName
+    version = projectVersion
 }
+
+war {
+    baseName = projectBaseName
+    version = projectVersion
+}
+
+//sourceSets {
+//    main.kotlin.srcDirs += 'src/main/kotlin/'
+//}
+
 
 repositories {
     jcenter()
@@ -31,6 +49,7 @@ repositories {
 }
 
 sourceCompatibility = 1.8
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -59,13 +78,34 @@ dependencies {
     compile ('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.9')
     compile ('net.sourceforge.nekohtml:nekohtml:1.9.21')
 
-    compile 'org.webjars:webjars-locator'
+//    compile 'org.webjars:webjars-locator'
     compile 'org.webjars:jquery:2.2.4'
     compile 'org.webjars:jquery-ui:1.11.4'
     compile 'org.webjars:bootstrap:3.3.6'
 
     compile "org.flywaydb:flyway-core:4.2.0"
+
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
+
+
+//task stage(dependsOn: ['assemble', 'war'])
+//build.mustRunAfter clean
+
+
+
+//bootRun {
+//    addResources = true
+//}
+//
+//jar {
+//    manifest {
+//        attributes(
+//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+//                'Main-Class': mainClassName
+//        )
+//    }
+//}
