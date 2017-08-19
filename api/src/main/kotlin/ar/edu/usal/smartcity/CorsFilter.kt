@@ -1,4 +1,4 @@
-package ar.edu.usal.smartcity.application
+package ar.edu.usal.smartcity
 
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter

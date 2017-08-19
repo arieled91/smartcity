@@ -1,15 +1,16 @@
-package ar.edu.usal.smartcity.application.model
+package ar.edu.usal.smartcity.model
 
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-@Table(name = "tag"/*, schema = "smartcity"*/)
-data class Tag(
+@Table(name = "checkpoint"/*, schema = "smartcity"*/)
+data class Checkpoint(
     var deviceId: String = "",
-    var tagId: String = "",
+    @ManyToOne
+    @JoinColumn(name="tag_id")
+    var tag: Tag = Tag(),
     var creationTime : LocalDateTime = LocalDateTime.now(),
-
     @Id @GeneratedValue(strategy= GenerationType.AUTO)
     var id : Long = 0
 )

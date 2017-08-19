@@ -1,4 +1,4 @@
-package ar.edu.usal.smartcity.application
+package ar.edu.usal.smartcity
 
 import org.junit.Test
 import org.junit.runner.RunWith

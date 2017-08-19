@@ -1,4 +1,4 @@
-package ar.edu.usal.smartcity.common
+package ar.edu.usal.common
 
 import org.springframework.context.annotation.Profile
 
