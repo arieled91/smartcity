@@ -75,6 +75,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}"
 
     compile("com.h2database:h2")
+    compile 'mysql:mysql-connector-java:8.0.7-dmr'
     compile ('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.9')
     compile ('net.sourceforge.nekohtml:nekohtml:1.9.21')
 

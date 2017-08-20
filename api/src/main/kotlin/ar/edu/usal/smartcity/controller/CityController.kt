@@ -1,6 +1,6 @@
 package ar.edu.usal.smartcity.controller
 
-import ar.edu.usal.smartcity.model.Checkpoint
+import ar.edu.usal.smartcity.model.city.Checkpoint
 import ar.edu.usal.smartcity.repository.CheckpointRepository
 import ar.edu.usal.smartcity.repository.TagRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import java.time.LocalDateTime
 
 
 @RepositoryRestController
@@ -19,10 +20,14 @@ class CityController {
 
 
     @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
-    fun saveCheckpoint(@RequestBody request: TagCheckpoint) : ResponseEntity<Checkpoint> {
+    fun saveCheckpoint(@RequestBody request: TagCheckpoint): ResponseEntity<Checkpoint> {
         val tag = tagRepo.findByCode(request.tagCode)
-        return ResponseEntity.ok(checkpointRepo.save(Checkpoint(request.deviceId, tag)))
+        return ResponseEntity.ok(checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime)))
     }
 }
 
-open class TagCheckpoint(var deviceId: String ="", var tagCode: String="")
+open class TagCheckpoint(
+    var deviceId: String = "",
+    var tagCode: String = "",
+    var dateTime: LocalDateTime = LocalDateTime.now()
+)
