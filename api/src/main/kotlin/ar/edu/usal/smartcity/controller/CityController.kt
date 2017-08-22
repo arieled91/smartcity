@@ -1,8 +1,14 @@
 package ar.edu.usal.smartcity.controller
 
 import ar.edu.usal.smartcity.model.city.Checkpoint
+import ar.edu.usal.smartcity.model.city.TrafficViolation
+import ar.edu.usal.smartcity.model.city.ViolationType
+import ar.edu.usal.smartcity.model.common.Location
+import ar.edu.usal.smartcity.model.common.Resource
 import ar.edu.usal.smartcity.repository.CheckpointRepository
+import ar.edu.usal.smartcity.repository.ResourceRepository
 import ar.edu.usal.smartcity.repository.TagRepository
+import ar.edu.usal.smartcity.repository.TrafficViolationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.webmvc.RepositoryRestController
 import org.springframework.http.ResponseEntity
@@ -17,13 +23,22 @@ class CityController {
 
     @Autowired lateinit var checkpointRepo: CheckpointRepository
     @Autowired lateinit var tagRepo: TagRepository
+    @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
+    @Autowired lateinit var resourceRepo: ResourceRepository
 
 
     @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
     fun saveCheckpoint(@RequestBody request: TagCheckpoint): ResponseEntity<Checkpoint> {
         val tag = tagRepo.findByCode(request.tagCode)
-        val savedCheckpoint = checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime))
-        return ResponseEntity.ok(savedCheckpoint)
+        val saved = checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime))
+        return ResponseEntity.ok(saved)
+    }
+
+    @RequestMapping(value = "/trafficViolations", method = arrayOf(RequestMethod.POST))
+    fun saveTrafficViolation(@RequestBody request: TrafficViolationRequest): ResponseEntity<TrafficViolation> {
+        val image = resourceRepo.save(Resource().buildFromBase64(request.image))
+        val saved = trafficViolRepo.save(TrafficViolation(request.location, request.violationType, request.dateTime, image))
+        return ResponseEntity.ok(saved)
     }
 }
 
@@ -31,4 +46,11 @@ open class TagCheckpoint(
     var deviceId: String = "",
     var tagCode: String = "",
     var dateTime: LocalDateTime = LocalDateTime.now()
+)
+
+open class TrafficViolationRequest(
+    var image: String,
+    var location: Location,
+    var dateTime: LocalDateTime,
+    var violationType: ViolationType
 )

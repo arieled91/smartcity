@@ -2,6 +2,7 @@ package ar.edu.usal.smartcity.repository
 
 import ar.edu.usal.smartcity.model.city.Checkpoint
 import ar.edu.usal.smartcity.model.city.Tag
+import ar.edu.usal.smartcity.model.city.TrafficViolation
 import ar.edu.usal.smartcity.model.common.Resource
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
@@ -14,3 +15,5 @@ interface TagRepository : CrudRepository<Tag, Long>, PagingAndSortingRepository<
 }
 
 interface ResourceRepository : CrudRepository<Resource, Long>, PagingAndSortingRepository<Resource, Long>
+
+interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, PagingAndSortingRepository<TrafficViolation, Long>

@@ -1,17 +1,17 @@
 package ar.edu.usal.smartcity.persistance
 
 import ar.edu.usal.common.Dev
-import ar.edu.usal.smartcity.model.city.Checkpoint
-import ar.edu.usal.smartcity.model.city.Tag
-import ar.edu.usal.smartcity.model.city.TagType
+import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
 import ar.edu.usal.smartcity.repository.CheckpointRepository
 import ar.edu.usal.smartcity.repository.ResourceRepository
 import ar.edu.usal.smartcity.repository.TagRepository
+import ar.edu.usal.smartcity.repository.TrafficViolationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -22,6 +22,7 @@ class DatabaseLoader : CommandLineRunner {
     @Autowired lateinit var checkpointRepo: CheckpointRepository
     @Autowired lateinit var tagRepo: TagRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
+    @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
 
     override fun run(vararg args: String?) {
 
@@ -32,6 +33,8 @@ class DatabaseLoader : CommandLineRunner {
             val resource = Resource().buildFromBase64(testImage)
 
             resourceRepo.save(resource)
+
+            trafficViolRepo.save(TrafficViolation(Location("test loc",54544,3234), ViolationType.SPEED, LocalDateTime.now(), resource))
 
             val testTagNumber = "123456"
 
