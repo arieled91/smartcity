@@ -22,7 +22,8 @@ class CityController {
     @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
     fun saveCheckpoint(@RequestBody request: TagCheckpoint): ResponseEntity<Checkpoint> {
         val tag = tagRepo.findByCode(request.tagCode)
-        return ResponseEntity.ok(checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime)))
+        val savedCheckpoint = checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime))
+        return ResponseEntity.ok(savedCheckpoint)
     }
 }
 
