@@ -5,10 +5,7 @@ import ar.edu.usal.smartcity.model.city.TrafficViolation
 import ar.edu.usal.smartcity.model.city.ViolationType
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
-import ar.edu.usal.smartcity.repository.CheckpointRepository
-import ar.edu.usal.smartcity.repository.ResourceRepository
-import ar.edu.usal.smartcity.repository.TagRepository
-import ar.edu.usal.smartcity.repository.TrafficViolationRepository
+import ar.edu.usal.smartcity.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.webmvc.RepositoryRestController
 import org.springframework.http.ResponseEntity
@@ -24,6 +21,7 @@ class CityController {
     @Autowired lateinit var checkpointRepo: CheckpointRepository
     @Autowired lateinit var tagRepo: TagRepository
     @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
+    @Autowired lateinit var trafficLightRepo: TrafficLightRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
 
 

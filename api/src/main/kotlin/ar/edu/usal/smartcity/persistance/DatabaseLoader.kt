@@ -4,15 +4,11 @@ import ar.edu.usal.common.Dev
 import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
-import ar.edu.usal.smartcity.repository.CheckpointRepository
-import ar.edu.usal.smartcity.repository.ResourceRepository
-import ar.edu.usal.smartcity.repository.TagRepository
-import ar.edu.usal.smartcity.repository.TrafficViolationRepository
+import ar.edu.usal.smartcity.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
-import java.util.*
 
 
 @Dev
@@ -23,6 +19,7 @@ class DatabaseLoader : CommandLineRunner {
     @Autowired lateinit var tagRepo: TagRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
     @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
+    @Autowired lateinit var trafficLightRepo: TrafficLightRepository
 
     override fun run(vararg args: String?) {
 
@@ -44,6 +41,8 @@ class DatabaseLoader : CommandLineRunner {
 
             checkpointRepo.save(Checkpoint("test-device", testTag))
             checkpointRepo.save(Checkpoint("test-device", testTag))
+
+            trafficLightRepo.save(TrafficLight())
         }
 
     }
