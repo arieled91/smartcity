@@ -19,7 +19,7 @@ class TrafficViolation(
     var creationTime: LocalDateTime = LocalDateTime.now(),
 
     @OneToOne
-    var image: Resource?=null,
+    var image: Resource? = null,
 
     @ManyToOne
     var vehicle: Vehicle? = null,

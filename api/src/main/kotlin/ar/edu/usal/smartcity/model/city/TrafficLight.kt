@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "traffic_light", schema = "city")
-data class TrafficLight (
+data class TrafficLight(
     var status: TrafficLightStatus = TrafficLightStatus.WARNING,
 
     var updateTime: LocalDateTime = LocalDateTime.MIN,
@@ -17,8 +17,8 @@ data class TrafficLight (
 //    @GeneratedValue(generator = "system-uuid")
 //    @GenericGenerator(name = "system-uuid", strategy = "uuid")
 //    var uuid: UUID = UUID(0L,0L)
-){
-    fun nextStatus(){
+) {
+    fun nextStatus() {
         status = status.next();
     }
 
@@ -29,8 +29,8 @@ data class TrafficLight (
     }
 }
 
-enum class TrafficLightStatus(val secondsLong: Int){
-    GO(10){
+enum class TrafficLightStatus(val secondsLong: Int) {
+    GO(10) {
         override fun next() = CHANGE_STOP
     },
     CHANGE_STOP(3) {

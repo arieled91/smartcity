@@ -7,8 +7,7 @@ import javax.xml.bind.DatatypeConverter
 class Base64Helper(
     var mediaType: MediaType = MediaType.APPLICATION_OCTET_STREAM,
     var data: String = ""
-)
-{
+) {
     constructor(rawBase64: String) : this() {
         if (hasHeader(rawBase64)) {
             val base64 = splitBase64Data(rawBase64)

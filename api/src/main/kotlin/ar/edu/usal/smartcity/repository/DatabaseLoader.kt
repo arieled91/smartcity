@@ -30,7 +30,7 @@ class DatabaseLoader : CommandLineRunner {
 
             resourceRepo.save(resource)
 
-            trafficViolRepo.save(TrafficViolation(Location("test loc",54544,3234), ViolationType.SPEED, LocalDateTime.now(), resource))
+            trafficViolRepo.save(TrafficViolation(Location("test loc", 54544, 3234), ViolationType.SPEED, LocalDateTime.now(), resource))
 
             val testTagNumber = "123456"
 

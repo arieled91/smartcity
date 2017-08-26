@@ -25,7 +25,7 @@ class TrafficLightTasks {
         update(TrafficLightStatus.CHANGE_GO)
     }
 
-    fun update(status: TrafficLightStatus){
+    fun update(status: TrafficLightStatus) {
         val updateTime = LocalDateTime.now().minusSeconds(status.secondsLong.toLong())
         val trafficLights = trafficLightRepo.findByStatusAndUpdateTimeLessThan(status, updateTime)
 
