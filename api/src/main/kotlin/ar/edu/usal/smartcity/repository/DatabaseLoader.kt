@@ -1,10 +1,9 @@
-package ar.edu.usal.smartcity.persistance
+package ar.edu.usal.smartcity.repository
 
 import ar.edu.usal.common.Dev
 import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
-import ar.edu.usal.smartcity.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
@@ -42,7 +41,7 @@ class DatabaseLoader : CommandLineRunner {
             checkpointRepo.save(Checkpoint("test-device", testTag))
             checkpointRepo.save(Checkpoint("test-device", testTag))
 
-            trafficLightRepo.save(TrafficLight())
+            trafficLightRepo.save(TrafficLight(TrafficLightStatus.CHANGE_GO))
         }
 
     }

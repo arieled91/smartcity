@@ -1,13 +1,12 @@
 package ar.edu.usal.smartcity.repository
 
-import ar.edu.usal.smartcity.model.city.Checkpoint
-import ar.edu.usal.smartcity.model.city.Tag
-import ar.edu.usal.smartcity.model.city.TrafficLight
-import ar.edu.usal.smartcity.model.city.TrafficViolation
+import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Resource
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
+import java.time.LocalDateTime
 
 interface CheckpointRepository : CrudRepository<Checkpoint, Long>, PagingAndSortingRepository<Checkpoint, Long>
 
@@ -19,4 +18,6 @@ interface ResourceRepository : CrudRepository<Resource, Long>, PagingAndSortingR
 
 interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, PagingAndSortingRepository<TrafficViolation, Long>
 
-interface TrafficLightRepository : CrudRepository<TrafficLight, Long>, PagingAndSortingRepository<TrafficLight, Long>
+interface TrafficLightRepository : CrudRepository<TrafficLight, Long>, PagingAndSortingRepository<TrafficLight, Long>, JpaSpecificationExecutor<TrafficLight> {
+    fun findByStatusAndUpdateTimeLessThan(status: TrafficLightStatus, updateTime: LocalDateTime): List<TrafficLight>
+}

@@ -21,12 +21,11 @@ class CityController {
     @Autowired lateinit var checkpointRepo: CheckpointRepository
     @Autowired lateinit var tagRepo: TagRepository
     @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
-    @Autowired lateinit var trafficLightRepo: TrafficLightRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
 
 
     @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
-    fun saveCheckpoint(@RequestBody request: TagCheckpoint): ResponseEntity<Checkpoint> {
+    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Checkpoint> {
         val tag = tagRepo.findByCode(request.tagCode)
         val saved = checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime))
         return ResponseEntity.ok(saved)
@@ -40,7 +39,7 @@ class CityController {
     }
 }
 
-open class TagCheckpoint(
+open class CheckpointRequest(
     var deviceId: String = "",
     var tagCode: String = "",
     var dateTime: LocalDateTime = LocalDateTime.now()

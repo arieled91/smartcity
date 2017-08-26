@@ -84,7 +84,6 @@ dependencies {
     compile 'org.webjars:bootstrap:3.3.6'
 
     compile "org.flywaydb:flyway-core:4.2.0"
-
 }
 
 task stage(dependsOn: ['build', 'clean'])
