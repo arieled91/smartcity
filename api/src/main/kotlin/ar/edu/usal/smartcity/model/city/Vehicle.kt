@@ -1,6 +1,5 @@
 package ar.edu.usal.smartcity.model.city
 
-import ar.edu.usal.smartcity.model.city.Party
 import javax.persistence.*
 
 @Entity

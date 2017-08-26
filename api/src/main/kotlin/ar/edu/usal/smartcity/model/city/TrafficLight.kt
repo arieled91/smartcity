@@ -1,6 +1,5 @@
 package ar.edu.usal.smartcity.model.city
 
-import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 import javax.persistence.*
 

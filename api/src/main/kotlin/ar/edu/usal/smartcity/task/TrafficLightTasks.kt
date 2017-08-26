@@ -3,7 +3,6 @@ package ar.edu.usal.smartcity.task
 import ar.edu.usal.smartcity.model.city.TrafficLightStatus
 import ar.edu.usal.smartcity.repository.TrafficLightRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.scheduling.annotation.Async
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
