@@ -1,6 +1,8 @@
 package ar.edu.usal.smartcity.model.city
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -8,7 +10,11 @@ import javax.persistence.*
 data class TrafficLight(
     var status: TrafficLightStatus = TrafficLightStatus.WARNING,
 
+    @JsonIgnore
     var updateTime: LocalDateTime = LocalDateTime.MIN,
+
+    @Column(unique=true)
+    var uuid: String = UUID.randomUUID().toString(),
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0

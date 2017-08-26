@@ -42,6 +42,7 @@ class DatabaseLoader : CommandLineRunner {
             checkpointRepo.save(Checkpoint("test-device", testTag))
 
             trafficLightRepo.save(TrafficLight(TrafficLightStatus.CHANGE_GO))
+            trafficLightRepo.save(TrafficLight(TrafficLightStatus.CHANGE_STOP))
         }
 
     }
