@@ -8,16 +8,12 @@ import javax.persistence.*
 @Entity
 @Table(name = "traffic_light", schema = "city")
 data class TrafficLight(
+    @Id
+    var id: String = UUID.randomUUID().toString(),
     var status: TrafficLightStatus = TrafficLightStatus.WARNING,
 
     @JsonIgnore
-    var updateTime: LocalDateTime = LocalDateTime.MIN,
-
-    @Column(unique=true)
-    var uuid: String = UUID.randomUUID().toString(),
-
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
+    var updateTime: LocalDateTime = LocalDateTime.MIN
 
 //    @Id
 //    @GeneratedValue(generator = "system-uuid")

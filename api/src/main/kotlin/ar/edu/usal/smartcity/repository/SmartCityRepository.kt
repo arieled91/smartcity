@@ -18,7 +18,6 @@ interface ResourceRepository : CrudRepository<Resource, Long>, PagingAndSortingR
 
 interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, PagingAndSortingRepository<TrafficViolation, Long>
 
-interface TrafficLightRepository : CrudRepository<TrafficLight, Long>, PagingAndSortingRepository<TrafficLight, Long>, JpaSpecificationExecutor<TrafficLight> {
+interface TrafficLightRepository : CrudRepository<TrafficLight, String>, PagingAndSortingRepository<TrafficLight, String>, JpaSpecificationExecutor<TrafficLight> {
     fun findByStatusAndUpdateTimeLessThan(@Param("status") status: TrafficLightStatus,@Param("updateTime") updateTime: LocalDateTime): List<TrafficLight>
-    fun findByUuid(@Param("uuid") uuid: String): TrafficLight
 }
