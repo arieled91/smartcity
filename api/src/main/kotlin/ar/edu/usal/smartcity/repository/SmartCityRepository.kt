@@ -10,14 +10,14 @@ import java.time.LocalDateTime
 
 interface CheckpointRepository : CrudRepository<Checkpoint, Long>, PagingAndSortingRepository<Checkpoint, Long>
 
-interface TagRepository : CrudRepository<Tag, Long>, PagingAndSortingRepository<Tag, Long> {
-    fun findByCode(@Param("code") code: String): Tag
-}
-
 interface ResourceRepository : CrudRepository<Resource, Long>, PagingAndSortingRepository<Resource, Long>
 
 interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, PagingAndSortingRepository<TrafficViolation, Long>
 
 interface TrafficLightRepository : CrudRepository<TrafficLight, String>, PagingAndSortingRepository<TrafficLight, String>, JpaSpecificationExecutor<TrafficLight> {
     fun findByStatusAndUpdateTimeLessThan(@Param("status") status: TrafficLightStatus,@Param("updateTime") updateTime: LocalDateTime): List<TrafficLight>
+}
+
+interface VehicleRepository : CrudRepository<Vehicle, Long>, PagingAndSortingRepository<Vehicle, Long>{
+    fun findByTagId(@Param("tagId") tagId: String): Vehicle
 }

@@ -36,10 +36,10 @@ class DatabaseLoader : CommandLineRunner {
 
             val location = Location("lugar de prueba")
 
-            val testTag: Tag = tagRepo.save(Tag(testTagNumber, TagType.OTHER, location))
+            val testTag: Place = tagRepo.save(Place(testTagNumber, TagType.OTHER, location))
 
-            checkpointRepo.save(Checkpoint("test-device", testTag))
-            checkpointRepo.save(Checkpoint("test-device", testTag))
+            checkpointRepo.save(Tag("test-device", testTag))
+            checkpointRepo.save(Tag("test-device", testTag))
 
             trafficLightRepo.save(TrafficLight("1",TrafficLightStatus.CHANGE_GO))
             trafficLightRepo.save(TrafficLight("2",TrafficLightStatus.CHANGE_STOP))

@@ -5,12 +5,9 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "checkpoint", schema = "city")
-data class Checkpoint(
-    var vehicleId: String = "",
-    @ManyToOne
-    @JoinColumn(name = "tag_id")
-    var tag: Tag = Tag(),
-    var dateTime: LocalDateTime = LocalDateTime.now(),
+class Checkpoint (
+    vehicle: Vehicle = Vehicle(),
+    var creationTime: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
 )

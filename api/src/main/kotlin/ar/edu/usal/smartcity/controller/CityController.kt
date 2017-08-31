@@ -1,6 +1,6 @@
 package ar.edu.usal.smartcity.controller
 
-import ar.edu.usal.smartcity.model.city.Checkpoint
+import ar.edu.usal.smartcity.model.city.Tag
 import ar.edu.usal.smartcity.model.city.TrafficViolation
 import ar.edu.usal.smartcity.model.city.ViolationType
 import ar.edu.usal.smartcity.model.common.Location
@@ -28,9 +28,9 @@ class CityController {
 
 
     @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
-    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Checkpoint> {
+    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Tag> {
         val tag = tagRepo.findByCode(request.tagCode)
-        val saved = checkpointRepo.save(Checkpoint(request.deviceId, tag, request.dateTime))
+        val saved = checkpointRepo.save(Tag(request.deviceId, tag, request.dateTime))
         return ResponseEntity.ok(saved)
     }
 
