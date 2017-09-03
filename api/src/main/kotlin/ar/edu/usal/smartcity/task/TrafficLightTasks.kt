@@ -15,17 +15,17 @@ class TrafficLightTasks {
 
     @Scheduled(fixedRate = 10000)
     fun longStatusUpdater() {
-        update(TrafficLightStatus.STOP)
-        update(TrafficLightStatus.GO)
+        updateByStatus(TrafficLightStatus.STOP)
+        updateByStatus(TrafficLightStatus.GO)
     }
 
     @Scheduled(fixedRate = 3000)
-    fun shortStatusUpdater() {
-        update(TrafficLightStatus.CHANGE_STOP)
-        update(TrafficLightStatus.CHANGE_GO)
+    fun transitionStatusUpdater() {
+        updateByStatus(TrafficLightStatus.CHANGE_STOP)
+        updateByStatus(TrafficLightStatus.CHANGE_GO)
     }
 
-    fun update(status: TrafficLightStatus) {
+    fun updateByStatus(status: TrafficLightStatus) {
         val updateTime = LocalDateTime.now().minusSeconds(status.secondsLong.toLong())
         val trafficLights = trafficLightRepo.findByStatusAndUpdateTimeLessThan(status, updateTime)
 
@@ -34,4 +34,6 @@ class TrafficLightTasks {
             trafficLightRepo.save(trafficLight)
         }
     }
+
+    //todo update by street
 }

@@ -5,10 +5,14 @@ import javax.persistence.*
 @Entity
 @Table(name = "street", schema = "city")
 class Street (
+    var name: String = "",
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    var direction: CardinalDirection = CardinalDirection.N,
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
 )
 
-enum class C
+enum class CardinalDirection{
+    N, S, E, O
+}

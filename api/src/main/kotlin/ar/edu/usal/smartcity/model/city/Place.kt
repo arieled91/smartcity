@@ -1,18 +1,19 @@
 package ar.edu.usal.smartcity.model.city
 
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "place", schema = "city")
 class Place(
-    @Id
-    var id: String = "",
+    @Column(unique=true)
+    var name: String = "",
 
     var type: PlaceType = PlaceType.OTHER,
 
-    var description: String? = null
+    var description: String? = null,
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long = 0
 )
 
 enum class PlaceType {

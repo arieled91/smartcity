@@ -35,8 +35,8 @@ class Base64Helper(
         }
     }
 
+    // index 0: MediaType, intex 1: data
     private fun splitBase64Data(base64: String): List<String> {
-        // index 0: MediaType, intex 1: data
         return base64.substring(5, base64.length).split(";base64,")
     }
 

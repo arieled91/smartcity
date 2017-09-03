@@ -1,14 +1,11 @@
 package ar.edu.usal.smartcity.controller
 
-import ar.edu.usal.smartcity.model.city.Tag
+import ar.edu.usal.smartcity.model.city.Checkpoint
 import ar.edu.usal.smartcity.model.city.TrafficViolation
 import ar.edu.usal.smartcity.model.city.ViolationType
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
-import ar.edu.usal.smartcity.repository.CheckpointRepository
-import ar.edu.usal.smartcity.repository.ResourceRepository
-import ar.edu.usal.smartcity.repository.TagRepository
-import ar.edu.usal.smartcity.repository.TrafficViolationRepository
+import ar.edu.usal.smartcity.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.webmvc.RepositoryRestController
 import org.springframework.http.ResponseEntity
@@ -22,15 +19,17 @@ import java.time.LocalDateTime
 class CityController {
 
     @Autowired lateinit var checkpointRepo: CheckpointRepository
-    @Autowired lateinit var tagRepo: TagRepository
+    @Autowired lateinit var vehicleRepo: VehicleRepository
     @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
+    @Autowired lateinit var placeRepo: PlaceRepository
 
 
-    @RequestMapping(value = "/checkpointTags", method = arrayOf(RequestMethod.POST))
-    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Tag> {
-        val tag = tagRepo.findByCode(request.tagCode)
-        val saved = checkpointRepo.save(Tag(request.deviceId, tag, request.dateTime))
+    @RequestMapping(value = "/tags", method = arrayOf(RequestMethod.POST))
+    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Checkpoint> {
+        val vehicle = vehicleRepo.findByTagId(request.tagCode)
+        val place = placeRepo.findByName(request.placeName)
+        val saved = checkpointRepo.save(Checkpoint(vehicle, place))
         return ResponseEntity.ok(saved)
     }
 
@@ -43,9 +42,8 @@ class CityController {
 }
 
 open class CheckpointRequest(
-    var deviceId: String = "",
-    var tagCode: String = "",
-    var dateTime: LocalDateTime = LocalDateTime.now()
+    var placeName: String = "",
+    var tagCode: String = ""
 )
 
 open class TrafficViolationRequest(

@@ -10,7 +10,14 @@ import javax.persistence.*
 data class TrafficLight(
     @Id
     var id: String = UUID.randomUUID().toString(),
+
     var status: TrafficLightStatus = TrafficLightStatus.WARNING,
+
+    @ManyToOne
+    var position: Street = Street(),
+
+    @ManyToOne
+    var intersection: Street = Street(),
 
     @JsonIgnore
     var updateTime: LocalDateTime = LocalDateTime.MIN
@@ -24,8 +31,7 @@ data class TrafficLight(
         status = status.next();
     }
 
-    @PreUpdate
-    @PrePersist
+    @PreUpdate @PrePersist
     private fun updateUpdateTime() {
         updateTime = LocalDateTime.now()
     }

@@ -8,8 +8,6 @@ class Vehicle(
     @ManyToOne
     var owner: Party = Party(),
 
-    var licensePlate: String = "",
-
     var tagId: String = String(),
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

@@ -3,6 +3,7 @@ package ar.edu.usal.smartcity.repository
 import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Resource
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
@@ -16,8 +17,19 @@ interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, P
 
 interface TrafficLightRepository : CrudRepository<TrafficLight, String>, PagingAndSortingRepository<TrafficLight, String>, JpaSpecificationExecutor<TrafficLight> {
     fun findByStatusAndUpdateTimeLessThan(@Param("status") status: TrafficLightStatus,@Param("updateTime") updateTime: LocalDateTime): List<TrafficLight>
+
+//    @Query("select * from #{#TrafficLight} T where T.direction = :direction or T")
+//    fun findByDirectionToUpdate(@Param("direction") direction: CardinalDirection): TrafficLight
 }
 
 interface VehicleRepository : CrudRepository<Vehicle, Long>, PagingAndSortingRepository<Vehicle, Long>{
     fun findByTagId(@Param("tagId") tagId: String): Vehicle
+}
+
+interface PartyRepository : CrudRepository<Party, Long>, PagingAndSortingRepository<Party, Long>
+
+interface StreetRepository : CrudRepository<Street, Long>, PagingAndSortingRepository<Street, Long>
+
+interface PlaceRepository : CrudRepository<Place, Long>, PagingAndSortingRepository<Place, Long>{
+    fun findByName(@Param("name") name: String): Place
 }
