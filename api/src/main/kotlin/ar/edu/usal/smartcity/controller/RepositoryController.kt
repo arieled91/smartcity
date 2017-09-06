@@ -1,11 +1,11 @@
 package ar.edu.usal.smartcity.controller
 
-import ar.edu.usal.smartcity.model.city.Checkpoint
 import ar.edu.usal.smartcity.model.city.TrafficViolation
 import ar.edu.usal.smartcity.model.city.ViolationType
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
-import ar.edu.usal.smartcity.repository.*
+import ar.edu.usal.smartcity.repository.ResourceRepository
+import ar.edu.usal.smartcity.repository.TrafficViolationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.webmvc.RepositoryRestController
 import org.springframework.http.ResponseEntity
@@ -18,20 +18,8 @@ import java.time.LocalDateTime
 @RepositoryRestController
 class CityController {
 
-    @Autowired lateinit var checkpointRepo: CheckpointRepository
-    @Autowired lateinit var vehicleRepo: VehicleRepository
     @Autowired lateinit var trafficViolRepo: TrafficViolationRepository
     @Autowired lateinit var resourceRepo: ResourceRepository
-    @Autowired lateinit var placeRepo: PlaceRepository
-
-
-    @RequestMapping(value = "/tags", method = arrayOf(RequestMethod.POST))
-    fun saveCheckpoint(@RequestBody request: CheckpointRequest): ResponseEntity<Checkpoint> {
-        val vehicle = vehicleRepo.findByTagId(request.tagCode)
-        val place = placeRepo.findByName(request.placeName)
-        val saved = checkpointRepo.save(Checkpoint(vehicle, place))
-        return ResponseEntity.ok(saved)
-    }
 
     @RequestMapping(value = "/trafficViolations", method = arrayOf(RequestMethod.POST))
     fun saveTrafficViolation(@RequestBody request: TrafficViolationRequest): ResponseEntity<TrafficViolation> {
