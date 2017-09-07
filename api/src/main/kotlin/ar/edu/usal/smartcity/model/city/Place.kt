@@ -8,6 +8,7 @@ class Place(
     @Column(unique=true)
     var name: String = "",
 
+    @Enumerated(EnumType.STRING)
     var type: PlaceType = PlaceType.OTHER,
 
     var description: String? = null,

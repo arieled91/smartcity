@@ -1,5 +1,6 @@
 package ar.edu.usal.smartcity.task
 
+import ar.edu.usal.smartcity.model.city.TrafficLight
 import ar.edu.usal.smartcity.model.city.TrafficLightStatus
 import ar.edu.usal.smartcity.repository.TrafficLightRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,8 +16,7 @@ class TrafficLightTasks {
 
     @Scheduled(fixedRate = 10000)
     fun longStatusUpdater() {
-        updateByStatus(TrafficLightStatus.STOP)
-        updateByStatus(TrafficLightStatus.GO)
+        updateSynchronized()
     }
 
     @Scheduled(fixedRate = 3000)
@@ -35,5 +35,16 @@ class TrafficLightTasks {
         }
     }
 
-    //todo update by street
+    fun updateSynchronized(){
+        trafficLightRepo.findWithoutIntersection().forEach({
+            trafficLight ->
+                trafficLight.nextStatus()
+                findIntersection(trafficLight)?.nextStatus()
+        })
+    }
+
+
+    fun findIntersection(trafficLight: TrafficLight) : TrafficLight?{
+        return trafficLightRepo.findByPositionAndIntersection(trafficLight.intersection, trafficLight.position)
+    }
 }

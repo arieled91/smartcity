@@ -7,6 +7,7 @@ import javax.persistence.*
 class Street (
     var name: String = "",
 
+    @Enumerated(EnumType.STRING)
     var direction: CardinalDirection = CardinalDirection.N,
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)

@@ -11,6 +11,7 @@ data class TrafficLight(
     @Id
     var id: String = UUID.randomUUID().toString(),
 
+    @Enumerated(EnumType.STRING)
     var status: TrafficLightStatus = TrafficLightStatus.WARNING,
 
     @ManyToOne

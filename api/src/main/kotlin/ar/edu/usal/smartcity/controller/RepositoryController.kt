@@ -29,11 +29,6 @@ class CityController {
     }
 }
 
-open class CheckpointRequest(
-    var placeName: String = "",
-    var tagCode: String = ""
-)
-
 open class TrafficViolationRequest(
     var image: String,
     var location: Location,

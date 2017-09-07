@@ -28,4 +28,9 @@ class CheckpointController {
         return HttpStatus.OK
 
     }
+
+    open class CheckpointRequest(
+        var placeName: String = "",
+        var tagCode: String = ""
+    )
 }

@@ -19,7 +19,14 @@ interface TrafficLightRepository : CrudRepository<TrafficLight, String>, PagingA
     fun findByStatusAndUpdateTimeLessThan(@Param("status") status: TrafficLightStatus,@Param("updateTime") updateTime: LocalDateTime): List<TrafficLight>
 
 //    @Query("select * from #{#TrafficLight} T where T.direction = :direction or T")
-//    fun findByDirectionToUpdate(@Param("direction") direction: CardinalDirection): TrafficLight
+    @Query("SELECT T FROM CITY.TRAFFIC_LIGHT T \n" +
+            "JOIN CITY.STREET POS ON POSITION_ID = POS.ID \n" +
+            "JOIN CITY.STREET INT ON INTERSECTION_ID = INT.ID \n" +
+            "WHERE POS.DIRECTION LIKE 'N' OR POS.DIRECTION LIKE 'S'\n" +
+            "OR INT.ID IS NULL")
+    fun findWithoutIntersection(): List<TrafficLight>
+
+    fun findByPositionAndIntersection(@Param("position") position: Street, @Param("intersection") intersection: Street): TrafficLight
 }
 
 interface VehicleRepository : CrudRepository<Vehicle, Long>, PagingAndSortingRepository<Vehicle, Long>{
