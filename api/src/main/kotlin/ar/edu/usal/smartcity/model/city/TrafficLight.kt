@@ -28,8 +28,9 @@ data class TrafficLight(
 //    @GenericGenerator(name = "system-uuid", strategy = "uuid")
 //    var uuid: UUID = UUID(0L,0L)
 ) {
-    fun nextStatus() {
+    fun nextStatus(): TrafficLight {
         status = status.next();
+        return this
     }
 
     @PreUpdate @PrePersist

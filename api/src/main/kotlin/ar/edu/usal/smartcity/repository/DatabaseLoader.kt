@@ -61,7 +61,7 @@ class DatabaseLoader : CommandLineRunner {
             streetRepo.save(streetY2)
 
             trafficLightRepo.save(TrafficLight("1",TrafficLightStatus.CHANGE_GO, streetX1, streetY1))
-            trafficLightRepo.save(TrafficLight("2",TrafficLightStatus.CHANGE_STOP, streetY1, streetX2))
+            trafficLightRepo.save(TrafficLight("2",TrafficLightStatus.CHANGE_STOP, streetY1, streetX1))
         }
 
     }

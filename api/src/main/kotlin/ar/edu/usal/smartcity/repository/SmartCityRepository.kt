@@ -18,13 +18,12 @@ interface TrafficViolationRepository : CrudRepository<TrafficViolation, Long>, P
 interface TrafficLightRepository : CrudRepository<TrafficLight, String>, PagingAndSortingRepository<TrafficLight, String>, JpaSpecificationExecutor<TrafficLight> {
     fun findByStatusAndUpdateTimeLessThan(@Param("status") status: TrafficLightStatus,@Param("updateTime") updateTime: LocalDateTime): List<TrafficLight>
 
-//    @Query("select * from #{#TrafficLight} T where T.direction = :direction or T")
-    @Query("SELECT T FROM CITY.TRAFFIC_LIGHT T \n" +
-            "JOIN CITY.STREET POS ON POSITION_ID = POS.ID \n" +
-            "JOIN CITY.STREET INT ON INTERSECTION_ID = INT.ID \n" +
-            "WHERE POS.DIRECTION LIKE 'N' OR POS.DIRECTION LIKE 'S'\n" +
-            "OR INT.ID IS NULL")
-    fun findWithoutIntersection(): List<TrafficLight>
+    @Query("SELECT T FROM TrafficLight T " +
+            "JOIN T.position POS " +
+            "JOIN T.intersection INT " +
+            "WHERE (POS.direction LIKE 'N' OR POS.direction LIKE 'S' OR T.intersection IS NULL)" +
+            "AND T.status NOT LIKE 'CHANGE%'")
+    fun findUpdatableWithoutIntersection(): List<TrafficLight>
 
     fun findByPositionAndIntersection(@Param("position") position: Street, @Param("intersection") intersection: Street): TrafficLight
 }

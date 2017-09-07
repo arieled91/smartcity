@@ -36,10 +36,11 @@ class TrafficLightTasks {
     }
 
     fun updateSynchronized(){
-        trafficLightRepo.findWithoutIntersection().forEach({
+        trafficLightRepo.findUpdatableWithoutIntersection().forEach({
             trafficLight ->
-                trafficLight.nextStatus()
-                findIntersection(trafficLight)?.nextStatus()
+                trafficLightRepo.save(trafficLight.nextStatus())
+                val intersection = findIntersection(trafficLight)?.nextStatus()
+                if(intersection!=null) trafficLightRepo.save(intersection)
         })
     }
 
