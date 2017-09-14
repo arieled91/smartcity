@@ -1,6 +1,7 @@
 package ar.edu.usal.smartcity.model.city
 
 import javax.persistence.*
+import ar.edu.usal.smartcity.model.common.Location
 
 @Entity
 @Table(name = "street", schema = "city")

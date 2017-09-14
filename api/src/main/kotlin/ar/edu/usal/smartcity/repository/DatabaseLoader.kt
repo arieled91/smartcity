@@ -4,9 +4,12 @@ import ar.edu.usal.common.Dev
 import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Location
 import ar.edu.usal.smartcity.model.common.Resource
+import ar.edu.usal.smartcity.model.party.Account
+import ar.edu.usal.smartcity.model.party.Party
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
 
@@ -22,20 +25,19 @@ class DatabaseLoader : CommandLineRunner {
     @Autowired lateinit var partyRepo: PartyRepository
     @Autowired lateinit var placeRepo: PlaceRepository
     @Autowired lateinit var streetRepo: StreetRepository
+    @Autowired lateinit var accountRepo: AccountRepository
 
     override fun run(vararg args: String?) {
 
         if (checkpointRepo.findAll().count() == 0) {
 
             val testImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAARElEQVR42u3PMREAAAgEoLd/YEfN4OpBA2qSzgMlIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiInKxnANiP8ezyscAAAAASUVORK5CYII="
-
             val resource = Resource().buildFromBase64(testImage)
-
             resourceRepo.save(resource)
 
-            trafficViolRepo.save(TrafficViolation(Location("test loc", 54544, 3234), ViolationType.SPEED, LocalDateTime.now(), resource))
+            trafficViolRepo.save(TrafficViolation(Location( 1, 1), ViolationType.SPEED, LocalDateTime.now(), resource))
 
-            val party = Party("USAL", null, "30537899901")
+            val party = Party("USAL", null, "30537899901", accountRepo.save(Account()))
             partyRepo.save(party)
 
             val vehicle = Vehicle(party, "123456")

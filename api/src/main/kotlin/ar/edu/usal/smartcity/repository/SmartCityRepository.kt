@@ -2,12 +2,16 @@ package ar.edu.usal.smartcity.repository
 
 import ar.edu.usal.smartcity.model.city.*
 import ar.edu.usal.smartcity.model.common.Resource
+import ar.edu.usal.smartcity.model.party.Account
+import ar.edu.usal.smartcity.model.party.AccountMovement
+import ar.edu.usal.smartcity.model.party.Party
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
 import java.time.LocalDateTime
+import java.util.*
 
 interface CheckpointRepository : CrudRepository<Checkpoint, Long>, PagingAndSortingRepository<Checkpoint, Long>
 
@@ -39,3 +43,8 @@ interface StreetRepository : CrudRepository<Street, Long>, PagingAndSortingRepos
 interface PlaceRepository : CrudRepository<Place, Long>, PagingAndSortingRepository<Place, Long>{
     fun findByName(@Param("name") name: String): Place
 }
+
+
+interface AccountRepository : CrudRepository<Account, Long>, PagingAndSortingRepository<Account, Long>
+
+interface AccountMovementRepository : CrudRepository<AccountMovement, Long>, PagingAndSortingRepository<AccountMovement, Long>

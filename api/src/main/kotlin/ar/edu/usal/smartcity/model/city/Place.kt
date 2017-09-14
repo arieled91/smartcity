@@ -18,8 +18,8 @@ class Place(
 )
 
 enum class PlaceType {
+    OTHER,
     TRAFFIC_LIGHT,
     TOLL,
-    PARKING,
-    OTHER
+    PARKING
 }
